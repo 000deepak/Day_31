@@ -1,0 +1,165 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.00 sec)
+
+mysql> create database addressbook_db;
+Query OK, 1 row affected (0.15 sec)
+
+mysql> use  addressbook_db;
+Database changed
+
+mysql> CREATE TABLE address_book (
+    -> first_name VARCHAR(100) NOT NULL,
+    -> last_name VARCHAR(100) NOT NULL,
+    -> address VARCHAR(255) NOT NULL,
+    -> city VARCHAR(100) NOT NULL,
+    -> state VARCHAR(100) NOT NULL,
+    -> zip VARCHAR(50) NOT NULL,
+    -> phone VARCHAR(100) NOT NULL,
+    -> email VARCHAR(100) NOT NULL,
+    -> PRIMARY KEY (first_name)
+    -> );
+Query OK, 0 rows affected (1.09 sec)
+
+mysql> INSERT INTO address_book VALUES
+    -> ('deepak','kumbhar','kolhapur', 'kol','Maharastra','666666','91 9876543210','deepakkumbhar@gmail.com'),
+    -> ('deep','kum','kolha', 'kol','Mah','6666','91 98765','deep@gmail.com'),
+    -> ('de','ku','ko', 'k','Ma','66','91 98','de@gmail.com');
+Query OK, 3 rows affected (0.13 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM address_book;
++------------+-----------+----------+------+------------+--------+---------------+-------------------------+
+| first_name | last_name | address  | city | state      | zip    | phone         | email                   |
++------------+-----------+----------+------+------------+--------+---------------+-------------------------+
+| de         | ku        | ko       | k    | Ma         | 66     | 91 98         | de@gmail.com            |
+| deep       | kum       | kolha    | kol  | Mah        | 6666   | 91 98765      | deep@gmail.com          |
+| deepak     | kumbhar   | kolhapur | kol  | Maharastra | 666666 | 91 9876543210 | deepakkumbhar@gmail.com |
++------------+-----------+----------+------+------------+--------+---------------+-------------------------+
+3 rows in set (0.00 sec)
+
+mysql> UPDATE address_book
+    -> SET email = 'dee@gmail.com'
+    -> WHERE first_name = 'de' AND last_name = 'ku';
+Query OK, 1 row affected (0.14 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM address_book;
++------------+-----------+----------+------+------------+--------+---------------+-------------------------+
+| first_name | last_name | address  | city | state      | zip    | phone         | email                   |
++------------+-----------+----------+------+------------+--------+---------------+-------------------------+
+| de         | ku        | ko       | k    | Ma         | 66     | 91 98         | dee@gmail.com           |
+| deep       | kum       | kolha    | kol  | Mah        | 6666   | 91 98765      | deep@gmail.com          |
+| deepak     | kumbhar   | kolhapur | kol  | Maharastra | 666666 | 91 9876543210 | deepakkumbhar@gmail.com |
++------------+-----------+----------+------+------------+--------+---------------+-------------------------+
+3 rows in set (0.00 sec)
+
+mysql> DELETE FROM address_book
+    -> WHERE first_name = 'deep' AND last_name = 'kum';
+Query OK, 1 row affected (0.11 sec)
+
+mysql> SELECT * FROM address_book;
++------------+-----------+----------+------+------------+--------+---------------+-------------------------+
+| first_name | last_name | address  | city | state      | zip    | phone         | email                   |
++------------+-----------+----------+------+------------+--------+---------------+-------------------------+
+| de         | ku        | ko       | k    | Ma         | 66     | 91 98         | dee@gmail.com           |
+| deepak     | kumbhar   | kolhapur | kol  | Maharastra | 666666 | 91 9876543210 | deepakkumbhar@gmail.com |
++------------+-----------+----------+------+------------+--------+---------------+-------------------------+
+2 rows in set (0.03 sec)
+
+mysql> INSERT INTO address_book VALUES
+    -> ('Person1','one','Address 1','Mumbai1','State1','1','911','person1@gmail.com'),
+    -> ('Person2','two','Address 2','Mumbai2','State2','11','922','person2@gmail.com');
+Query OK, 2 rows affected (0.15 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM address_book
+    -> ;
++------------+-----------+-----------+---------+------------+--------+---------------+-------------------------+
+| first_name | last_name | address   | city    | state      | zip    | phone         | email                   |
++------------+-----------+-----------+---------+------------+--------+---------------+-------------------------+
+| de         | ku        | ko        | k       | Ma         | 66     | 91 98         | dee@gmail.com           |
+| deepak     | kumbhar   | kolhapur  | kol     | Maharastra | 666666 | 91 9876543210 | deepakkumbhar@gmail.com |
+| Person1    | one       | Address 1 | Mumbai1 | State1     | 1      | 911           | person1@gmail.com       |
+| Person2    | two       | Address 2 | Mumbai2 | State2     | 11     | 922           | person2@gmail.com       |
++------------+-----------+-----------+---------+------------+--------+---------------+-------------------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM address_book
+    -> WHERE city = 'kol' OR state = 'Maharashtra';
++------------+-----------+----------+------+------------+--------+---------------+-------------------------+
+| first_name | last_name | address  | city | state      | zip    | phone         | email                   |
++------------+-----------+----------+------+------------+--------+---------------+-------------------------+
+| deepak     | kumbhar   | kolhapur | kol  | Maharastra | 666666 | 91 9876543210 | deepakkumbhar@gmail.com |
++------------+-----------+----------+------+------------+--------+---------------+-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM address_book;
++------------+-----------+-----------+---------+------------+--------+---------------+-------------------------+
+| first_name | last_name | address   | city    | state      | zip    | phone         | email                   |
++------------+-----------+-----------+---------+------------+--------+---------------+-------------------------+
+| de         | ku        | ko        | k       | Ma         | 66     | 91 98         | dee@gmail.com           |
+| deepak     | kumbhar   | kolhapur  | kol     | Maharastra | 666666 | 91 9876543210 | deepakkumbhar@gmail.com |
+| Person1    | one       | Address 1 | Mumbai1 | State1     | 1      | 911           | person1@gmail.com       |
+| Person2    | two       | Address 2 | Mumbai2 | State2     | 11     | 922           | person2@gmail.com       |
++------------+-----------+-----------+---------+------------+--------+---------------+-------------------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT COUNT(State),state FROM address_book GROUP BY state;
++--------------+------------+
+| COUNT(State) | state      |
++--------------+------------+
+|            1 | Ma         |
+|            1 | Maharastra |
+|            1 | State1     |
+|            1 | State2     |
++--------------+------------+
+4 rows in set (0.04 sec)
+
+mysql> SELECT COUNT(city),city FROM address_book GROUP BY city;
++-------------+---------+
+| COUNT(city) | city    |
++-------------+---------+
+|           1 | k       |
+|           1 | kol     |
+|           1 | Mumbai1 |
+|           1 | Mumbai2 |
++-------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM address_book
+    -> WHERE city = 'Mumbai'
+    -> ORDER BY first_name;
+Empty set (0.00 sec)
+
+mysql> ALTER TABLE address_book ADD name VARCHAR(50);
+Query OK, 0 rows affected (1.52 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM address_book;
++------------+-----------+-----------+---------+------------+--------+---------------+-------------------------+------+
+| first_name | last_name | address   | city    | state      | zip    | phone         | email                   | name |
++------------+-----------+-----------+---------+------------+--------+---------------+-------------------------+------+
+| de         | ku        | ko        | k       | Ma         | 66     | 91 98         | dee@gmail.com           | NULL |
+| deepak     | kumbhar   | kolhapur  | kol     | Maharastra | 666666 | 91 9876543210 | deepakkumbhar@gmail.com | NULL |
+| Person1    | one       | Address 1 | Mumbai1 | State1     | 1      | 911           | person1@gmail.com       | NULL |
+| Person2    | two       | Address 2 | Mumbai2 | State2     | 11     | 922           | person2@gmail.com       | NULL |
++------------+-----------+-----------+---------+------------+--------+---------------+-------------------------+------+
+4 rows in set (0.03 sec)
+
+mysql> SELECT COUNT(TYPE) FROM address_book;
++-------------+
+| COUNT(TYPE) |
++-------------+
+|           4 |
++-------------+
+1 row in set (0.03 sec)
+
+mysql>
